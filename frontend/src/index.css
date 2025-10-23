@@ -1,0 +1,171 @@
+/* --- Müasir Rəng Palitrası və Dəyişənlər --- */
+:root {
+  --bg-color: #f8f9fa; /* Arxa fon */
+  --card-bg: #ffffff; /* Kartın rəngi */
+  --text-primary: #212529; /* Əsas mətn */
+  --text-secondary: #6c757d; /* İkinci dərəcəli mətn */
+  --border-color: #dee2e6; /* Sərhəd rəngi */
+  --primary: #007bff; /* Əsas rəng (məs, 'Convert' düyməsi) */
+  --primary-hover: #0056b3;
+  --success: #28a745; /* Uğur rəngi (məs, 'History' düyməsi) */
+  --success-hover: #218838;
+  --danger: #dc3545; /* Təhlükə rəngi (məs, 'Delete' düyməsi) */
+  --danger-hover: #c82333;
+  --result-bg: #e6f7ff; /* Nəticə blokunun arxa fonu */
+  --history-bg: #f1f3f5; /* Tarixçə blokunun arxa fonu */
+  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.08);
+  --border-radius: 8px; /* Bütün elementlər üçün vahid radius */
+}
+
+/* --- Əsas Stillər --- */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.app {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* --- Forma Elementləri --- */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+label {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  font-size: 1rem;
+  box-sizing: border-box; /* 100% en + padding problemi üçün */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* İnput sahələrinə kliklədikdə gözəl effekt */
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+/* --- Düymələr (Buttons) --- */
+/* Bütün düymələr üçün ümumi keçid (transition) */
+.convert-btn, .show-history-btn, .delete-btn {
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+/* Üzərinə gəldikdə yüngül qalxma effekti */
+.convert-btn:hover, .show-history-btn:hover, .delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.convert-btn {
+  padding: 0.7rem 1.5rem;
+  margin-top: 10px;
+  border-radius: var(--border-radius);
+  background: var(--primary);
+  color: white;
+  font-size: 1rem;
+}
+
+.convert-btn:hover {
+  background: var(--primary-hover);
+}
+
+.show-history-btn {
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--border-radius);
+  background: var(--success);
+  color: white;
+  margin-bottom: 10px;
+}
+
+.show-history-btn:hover {
+  background: var(--success-hover);
+}
+
+.delete-btn {
+  background: var(--danger);
+  color: white;
+  border-radius: 6px; /* Kiçik düymə üçün bir az daha az */
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  opacity: 0.8; /* Çox gözə girməməsi üçün */
+}
+
+.delete-btn:hover {
+  background: var(--danger-hover);
+  opacity: 1;
+}
+
+/* --- Nəticə və Tarixçə Bölmələri --- */
+.result {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: var(--result-bg);
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  text-align: center;
+  color: var(--primary-hover);
+  border: 1px solid rgba(0, 123, 255, 0.1);
+}
+
+.history-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.history {
+  background: var(--history-bg);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding: 0.75rem 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.history-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
