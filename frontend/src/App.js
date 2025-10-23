@@ -93,13 +93,15 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [result, setResult] = useState("");
   const [history, setHistory] = useState([]);
-  const [showHistory, setShowHistory] = useState(false);
 
   const currentOptions = category === "numberSystems" ? numberSystems : distanceUnits;
   const currentPlaceholder = currentOptions.find(c => c.value === type)?.placeholder || "";
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/history`).then(res => setHistory(res.data));
+    axios.get(`${BASE_URL}/api/history`).then(res => {
+      if (Array.isArray(res.data)) setHistory(res.data);
+      else setHistory([]);
+    });
   }, []);
 
   const handleConvert = async () => {
@@ -116,9 +118,8 @@ function App() {
       steps: []
     };
 
-    await axios.post(`${BASE_URL}/history`, newEntry);
-    const updatedHistory = await axios.get(`${BASE_URL}/history`);
-    setHistory(updatedHistory.data);
+    await axios.post(`${BASE_URL}/api/history`, newEntry);
+    setHistory(prev => [newEntry, ...prev]);
   };
 
   const handleInputChange = e => {
@@ -127,12 +128,12 @@ function App() {
   };
 
   const deleteHistory = async id => {
-    await axios.delete(`${BASE_URL}/history/${id}`);
+    await axios.delete(`${BASE_URL}/api/history/${id}`);
     setHistory(history.filter(h => h._id !== id));
   };
 
   const deleteAllHistory = async () => {
-    await axios.delete(`${BASE_URL}/history`);
+    await axios.delete(`${BASE_URL}/api/history`);
     setHistory([]);
   };
 
@@ -170,23 +171,7 @@ function App() {
 
       {result && <div className="result">Result: {result}</div>}
 
-      <div className="history-section">
-        <button className="show-history-btn" onClick={() => setShowHistory(!showHistory)}>
-          {showHistory ? "Hide History" : "Show History"} ({history.length})
-        </button>
-
-        {showHistory && (
-          <div className="history">
-            <button className="delete-all-btn" onClick={deleteAllHistory}>Delete All</button>
-            {history.map(h => (
-              <div key={h._id} className="history-item">
-                {h.fromValue} → {h.result} ({h.category === "numberSystems" ? "Number System" : "Distance / Length"})
-                <button className="delete-btn" onClick={() => deleteHistory(h._id)}>X</button>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+      
     </div>
   );
 }
